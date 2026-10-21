@@ -57,8 +57,9 @@ func TestConfig(t *testing.T) {
 		Grpc: types.Grpc{
 			UnixSocketPath: "/var/lib/comin/grpc.sock",
 		},
-		EvalTimeout:  1800,
-		BuildTimeout: 1800,
+		EvalTimeout:     1800,
+		BuildTimeout:    1800,
+		BuildRetryTimer: 30,
 		ExecutorConfig: types.ExecutorConfig{
 			Type: "nix",
 		},

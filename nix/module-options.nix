@@ -115,6 +115,21 @@ in
             Maximum duration in seconds for a Nix build before comin cancels it.
           '';
         };
+        buildAttemptsLimit = mkOption {
+          type = int;
+          default = 0;
+          description = ''
+            Maximum number of build attempts before giving up. When set to 0,
+            comin will retry forever on build failures.
+          '';
+        };
+        buildRetryTimer = mkOption {
+          type = int;
+          default = 30;
+          description = ''
+            Duration in seconds between each build retry attempt.
+          '';
+        };
         exporter = mkOption {
           description = "Options for the Prometheus exporter.";
           default = { };
@@ -312,15 +327,34 @@ in
           default = null;
         };
         postDeploymentCommand = mkOption {
-          description = "A path to a script executed after each
-        deployment. comin provides to the script the following
-        environment variables: `COMIN_GIT_SHA`, `COMIN_GIT_REF`,
-        `COMIN_GIT_MSG`, `COMIN_HOSTNAME`, `COMIN_FLAKE_URL`,
-        `COMIN_GENERATION`, `COMIN_STATUS` and `COMIN_ERROR_MSG`.";
+          description = ''
+            A path to a script executed after each
+            deployment. comin provides to the script the following
+            environment variables: `COMIN_PHASE` (set to `deploy`),
+            `COMIN_GIT_SHA`, `COMIN_GIT_REF`, `COMIN_GIT_MSG`,
+            `COMIN_HOSTNAME`, `COMIN_GENERATION`, `COMIN_STATUS`
+            (one of `init`, `running`, `done` or `failed`) and
+            `COMIN_ERROR_MSG`.
+          '';
           type = nullOr path;
           default = null;
           example = lib.literalExpression ''
             pkgs.writers.writeBash "post" "echo $COMIN_GIT_SHA";
+          '';
+        };
+        postBuildCommand = mkOption {
+          description = ''
+            A path to a script executed after each
+            build (including builds that are already in the Nix store).
+            comin provides to the script the same environment variables as
+            for the post deployment command, with `COMIN_PHASE` set to
+            `build`. The `COMIN_STATUS` is one of `built`, `failed` or
+            `already built`.
+          '';
+          type = nullOr path;
+          default = null;
+          example = lib.literalExpression ''
+            pkgs.writers.writeBash "post-build" "echo $COMIN_GIT_SHA";
           '';
         };
         buildConfirmer = mkOption {

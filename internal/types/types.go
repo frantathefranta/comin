@@ -108,10 +108,13 @@ type Configuration struct {
 	GpgPublicKeyPaths     []string   `yaml:"gpg_public_key_paths"`
 	SshAllowedSignersPath string     `yaml:"ssh_allowed_signers_path"`
 	PostDeploymentCommand string     `yaml:"post_deployment_command"`
+	PostBuildCommand      string     `yaml:"post_build_command"`
 	BuildConfirmer        Confirmer  `yaml:"build_confirmer"`
 	DeployConfirmer       Confirmer  `yaml:"deploy_confirmer"`
 	Retention             Retention  `yaml:"retention"`
 	ExecutorConfig        ExecutorConfig `yaml:"executor"`
 	EvalTimeout           int        `yaml:"eval_timeout"`
 	BuildTimeout          int        `yaml:"build_timeout"`
+	BuildAttemptsLimit    int        `yaml:"build_attempts_limit"`
+	BuildRetryTimer       int        `yaml:"build_retry_timer"`
 }
