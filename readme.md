@@ -1,5 +1,10 @@
 # comin - GitOps for NixOS Servers and Laptops
 
+This is [Franta's personal fork](https://github.com/frantathefranta/comin) of
+[nlewo/comin](https://github.com/nlewo/comin). Pull requests for this fork,
+including upstream synchronizations, must target `frantathefranta/comin:main`;
+do not open them against upstream.
+
 **comin** is a NixOS deployment tool operating in pull mode. Running
 on a machine, it periodically polls Git repositories and deploys the
 NixOS configuration associated to the machine.
@@ -26,7 +31,7 @@ This is a basic `flake.nix` example:
   inputs = {
     nixpkgs.url = "github:nixOS/nixpkgs";
     comin = {
-      url = "github:nlewo/comin";
+      url = "github:frantathefranta/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -63,7 +68,7 @@ A new commit in the `main` branch of the repository
 seconds.
 
 Comin exposes much more options which are described in the [generated
-documentation](https://github.com/nlewo/comin/blob/main/docs/generated-module-options.md).
+documentation](./docs/generated-module-options.md).
 
 ## Documentation
 
