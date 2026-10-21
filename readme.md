@@ -5,6 +5,10 @@ This is [Franta's personal fork](https://github.com/frantathefranta/comin) of
 including upstream synchronizations, must target `frantathefranta/comin:main`;
 do not open them against upstream.
 
+Thanks to [Xinyang Li's fork](https://github.com/xinyangli/comin) for the
+Garnix executor changes incorporated here, originally introduced in
+[`0cb3a83` — Add Garnix executor](https://github.com/nlewo/comin/commit/0cb3a838eebaa49fabf532736b78182c69c5ed7a).
+
 **comin** is a NixOS deployment tool operating in pull mode. Running
 on a machine, it periodically polls Git repositories and deploys the
 NixOS configuration associated to the machine.
